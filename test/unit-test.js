@@ -61,4 +61,10 @@ describe('TicTacToeAI', function(){
 		assert(utils.checkArrays(tictactoeAI.isWinPossible(['', 'X', 'X', '', '', '', '', '', ''], 'X'), [0]));
 		assert(utils.checkArrays(tictactoeAI.isWinPossible(['O', 'O', 'X', '', 'X', 'X', '', '', 'X'], 'X'), [3, 6]));
 	});
+	
+	it('getEmptyEdges', function() {
+		assert(utils.checkArrays(tictactoeAI.getEmptyEdges(['', '', '', '', '', '', '', '', '']), [0, 2, 6, 8]));
+		assert(utils.checkArrays(tictactoeAI.getEmptyEdges(['X', '', 'X', '', 'X', '', '', '', 'X']), [6]));
+		assert(utils.checkArrays(tictactoeAI.getEmptyEdges(['X', '', 'X', '', 'X', '', 'O', '', 'X']), []));
+	});
 })

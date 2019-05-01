@@ -81,4 +81,19 @@ TicTacToeAI.prototype.isWinPossible = function(board, player) {
 	return result;
 }
 
+TicTacToeAI.prototype.getEmptyEdges = function(board) {
+	let result = [];
+	
+	if(board[0] === this.config.empty)
+		result.push(0);
+	if(board[2] === this.config.empty)
+		result.push(2);
+	if(board[6] === this.config.empty)
+		result.push(6);
+	if(board[8] === this.config.empty)
+		result.push(8);
+	
+	return result;
+};
+
 module.exports = TicTacToeAI;

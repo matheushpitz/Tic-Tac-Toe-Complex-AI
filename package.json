@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha ./test/unit-test.js",
-	"play-test": "node ./test/play-test.js"
+	"play-test": "node ./test/play-test.js",
+	"vs": "node ./test/vs.js"
   },
   "repository": {
     "type": "git",
