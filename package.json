@@ -4,7 +4,8 @@
   "description": "This is a Complex JavaScript AI for the Tic Tac Toe Game.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./test/unit-test.js"
+    "test": "mocha ./test/unit-test.js",
+	"play-test": "node ./test/play-test.js"
   },
   "repository": {
     "type": "git",

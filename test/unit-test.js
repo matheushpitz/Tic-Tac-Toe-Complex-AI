@@ -5,10 +5,12 @@ const tictactoeAI = new (require('../src/AI.js'))({});
 describe('TicTacToeAI', function(){
 	
 	it('isValidBoard Function', function() {
+		const p = tictactoeAI.config.player;
 		// Just an array with 9 elements must be accepted.
 		// Invalid arrays
 		assert(!tictactoeAI.isValidBoard([]));
 		assert(!tictactoeAI.isValidBoard(['', '', '', '']));
+		assert(!tictactoeAI.isValidBoard([p, p, p, p, p, p, p, p, p]));
 		// Valid array.
 		assert(tictactoeAI.isValidBoard(['', '', '', '', '', '', '', '', '']));
 	});
@@ -40,5 +42,14 @@ describe('TicTacToeAI', function(){
 		assert(utils.checkArrays(tictactoeAI.getEmptyPositions([e, e, e, p, p, p, p, p, p]), [0, 1, 2]));
 		assert(utils.checkArrays(tictactoeAI.getEmptyPositions([e, e, e, p, p, p, p, p, e]), [0, 1, 2, 8]));
 		assert(utils.checkArrays(tictactoeAI.getEmptyPositions([p, p, p, p, p, p, p, p, p]), []));
+	});
+	
+	it('getRandomPosition', function() {
+		// Only one value
+		let values = [1];
+		assert(tictactoeAI.getRandomPosition(values) === values[0]);
+		// More than one value.
+		values = [1, 2, 3];
+		assert(values.indexOf(tictactoeAI.getRandomPosition(values)) !== -1);
 	});
 })

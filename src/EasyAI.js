@@ -10,7 +10,10 @@ EasyAI.prototype = Object.create(ai.prototype);
 EasyAI.prototype.play = function(board) {	
 	return new Promise( (resolve, reject) => {		
 		if(this.isValidBoard(board)) {
-			resolve();
+			this.delay().then(() => {		
+				// Only makes random plays.
+				resolve(this.getRandomPosition(this.getEmptyPositions(board)));
+			});
 		} else {
 			reject();
 		}
