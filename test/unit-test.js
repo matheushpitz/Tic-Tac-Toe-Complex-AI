@@ -52,4 +52,13 @@ describe('TicTacToeAI', function(){
 		values = [1, 2, 3];
 		assert(values.indexOf(tictactoeAI.getRandomPosition(values)) !== -1);
 	});
+	
+	it('isWinPossible', function() {
+		// No win
+		assert(utils.checkArrays(tictactoeAI.isWinPossible(['', '', '', '', '', '', '', '', ''], 'X'), []));
+		assert(utils.checkArrays(tictactoeAI.isWinPossible(['O', 'O', '', '', '', '', '', '', ''], 'X'), []));
+		// Possible win
+		assert(utils.checkArrays(tictactoeAI.isWinPossible(['', 'X', 'X', '', '', '', '', '', ''], 'X'), [0]));
+		assert(utils.checkArrays(tictactoeAI.isWinPossible(['O', 'O', 'X', '', 'X', 'X', '', '', 'X'], 'X'), [3, 6]));
+	});
 })

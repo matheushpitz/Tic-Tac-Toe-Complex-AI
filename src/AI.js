@@ -63,8 +63,22 @@ TicTacToeAI.prototype.delay = function() {
 	return new Promise( (resolve) => {
 		setTimeout(() => {
 			resolve();
-		}, (this.config.maxResponseTime - this.config.minResponseTime) * Math.random());
+		}, this.config.minResponseTime + ((this.config.maxResponseTime - this.config.minResponseTime) * Math.random()));
 	});
 };
+
+TicTacToeAI.prototype.isWinPossible = function(board, player) {
+	let result = [];
+	WIN_POS.forEach((elem) => {
+	if(board[elem[0]] === board[elem[1]] && board[elem[0]] === player && board[elem[2]] === this.config.empty)
+			result.push(elem[2]);
+		else if(board[elem[1]] === board[elem[2]] && board[elem[1]] === player && board[elem[0]] === this.config.empty)
+			result.push(elem[0]);
+		else if(board[elem[0]] === board[elem[2]] && board[elem[0]] === player && board[elem[1]] === this.config.empty)
+			result.push(elem[1]);
+	});
+	
+	return result;
+}
 
 module.exports = TicTacToeAI;
