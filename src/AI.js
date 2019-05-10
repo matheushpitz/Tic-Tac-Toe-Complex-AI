@@ -96,4 +96,38 @@ TicTacToeAI.prototype.getEmptyEdges = function(board) {
 	return result;
 };
 
+TicTacToeAI.prototype.calculatePaths = function(board, turn, depth) {
+	if(depth < 1)
+		return 0;
+
+	let canCheck = true;
+	let totalScore = 0;
+	let possiblePlays = this.getEmptyPositions(board);
+	let mark = turn == 1 ? this.config.ai : this.config.player;
+	possiblePlays.forEach((elem) => {
+		if(!canCheck)
+			return;
+		let newDepth = depth - 1;
+		let newBoard = Object.assign([], board);
+		newBoard[elem] = mark;
+		let score = this.calculatePaths(newBoard, turn * -1, newDepth) * turn;	
+		if(score < 0) {
+			canCheck = false;
+			totalScore = -1;
+		}	
+	});
+	return totalScore;
+};
+
+TicTacToeAI.prototype.getBestPlay = function(board, depth) {
+	let possiblePlays = this.getEmptyPositions(board);
+	let plays = {};
+	possiblePlays.forEach((elem) => {
+		let newBoard = Objecj.assign([], board);
+		newBoard[elem] = this.config.ai;
+		plays[elem] = this.calculatePaths(newBoard, -1, depth);
+	});
+	console.log(plays);
+};
+
 module.exports = TicTacToeAI;
