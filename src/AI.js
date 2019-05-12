@@ -96,38 +96,52 @@ TicTacToeAI.prototype.getEmptyEdges = function(board) {
 	return result;
 };
 
-TicTacToeAI.prototype.calculatePaths = function(board, turn, depth) {
-	if(depth < 1)
-		return 0;
+TicTacToeAI.prototype.getMark = function(turn) {
+	return turn === 1 ? this.config.ai : this.config.player;
+}
 
-	let canCheck = true;
-	let totalScore = 0;
-	let possiblePlays = this.getEmptyPositions(board);
-	let mark = turn == 1 ? this.config.ai : this.config.player;
-	possiblePlays.forEach((elem) => {
-		if(!canCheck)
+TicTacToeAI.prototype.minimax = function(board, plays, turn, depth) {
+	// Check if it can go more depth.
+	if(depth < 1)
+		return;
+	
+	let mark = this.getMark(turn);
+	// Check if it can win in one play.
+	if(turn === 1) {
+		let wins = this.isWinPossible(board, mark);
+
+		if(wins.length > 0) {
+			wins.forEach((elem) => {
+				plays[elem] = {score: 1};
+			});
 			return;
-		let newDepth = depth - 1;
+		}
+	}
+	// Get all empty positions.
+	let possiblePlays = this.getEmptyPositions(board);
+	possiblePlays.forEach((elem) => {
+		// Create the new board.
 		let newBoard = Object.assign([], board);
 		newBoard[elem] = mark;
-		let score = this.calculatePaths(newBoard, turn * -1, newDepth) * turn;	
-		if(score < 0) {
-			canCheck = false;
-			totalScore = -1;
-		}	
+		// Change the turn	
+		let newTurn = turn * -1;		
+		let newMark = this.getMark(newTurn);		
+		// Get the score.
+		let score = (this.isWinPossible(newBoard, newMark).length > 0 ? 1 : 0) * newTurn;	
+		// Save the score.	
+		plays[elem] = {score: score};
+		// Check if I can lose, it doesn't go ahead.
+		if(score > -1) {			
+			let newDepth = depth - 1;
+			this.minimax(newBoard, plays[elem], newTurn, newDepth);
+		}
 	});
-	return totalScore;
 };
 
 TicTacToeAI.prototype.getBestPlay = function(board, depth) {
-	let possiblePlays = this.getEmptyPositions(board);
-	let plays = {};
-	possiblePlays.forEach((elem) => {
-		let newBoard = Objecj.assign([], board);
-		newBoard[elem] = this.config.ai;
-		plays[elem] = this.calculatePaths(newBoard, -1, depth);
-	});
-	console.log(plays);
+	let myObj = {};
+	this.minimax(board, myObj, 1, depth);
+	console.log(JSON.stringify(myObj));
 };
 
 module.exports = TicTacToeAI;
