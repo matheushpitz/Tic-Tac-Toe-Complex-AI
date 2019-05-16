@@ -1,3 +1,5 @@
+const MinimaxNode = require('./MinimaxNode.js');
+
 const WIN_POS = [
 	[0, 1, 2], // horizontal line 1
 	[3, 4, 5], // horizontal line 2
@@ -100,7 +102,7 @@ TicTacToeAI.prototype.getMark = function(turn) {
 	return turn === 1 ? this.config.ai : this.config.player;
 }
 
-TicTacToeAI.prototype.minimax = function(board, plays, turn, depth) {
+TicTacToeAI.prototype.minimax = function(board, node, turn, depth) {
 	// Check if it can go more depth.
 	if(depth < 1)
 		return;
@@ -112,7 +114,8 @@ TicTacToeAI.prototype.minimax = function(board, plays, turn, depth) {
 
 		if(wins.length > 0) {
 			wins.forEach((elem) => {
-				plays[elem] = {score: 1};
+				let childNode = new MinimaxNode(node, elem, 1, turn);
+				node.addChild(childNode);				
 			});
 			return;
 		}
@@ -129,19 +132,20 @@ TicTacToeAI.prototype.minimax = function(board, plays, turn, depth) {
 		// Get the score.
 		let score = (this.isWinPossible(newBoard, newMark).length > 0 ? 1 : 0) * newTurn;	
 		// Save the score.	
-		plays[elem] = {score: score};
+		let childNode = new MinimaxNode(node, elem, score, turn);
+		node.addChild(childNode);		
 		// Check if I can lose, it doesn't go ahead.
 		if(score > -1) {			
 			let newDepth = depth - 1;
-			this.minimax(newBoard, plays[elem], newTurn, newDepth);
+			this.minimax(newBoard, childNode, newTurn, newDepth);
 		}
 	});
 };
 
 TicTacToeAI.prototype.getBestPlay = function(board, depth) {
-	let myObj = {};
-	this.minimax(board, myObj, 1, depth);
-	console.log(JSON.stringify(myObj));
+	let rootNode = new MinimaxNode(undefined, -1, 0, 0);
+	this.minimax(board, rootNode, 1, depth);
+	rootNode.toString();
 };
 
 module.exports = TicTacToeAI;
