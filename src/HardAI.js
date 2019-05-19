@@ -6,36 +6,35 @@ function HardAI(config) {
 
 HardAI.prototype = Object.create(ai.prototype);
 
-HardAI.prototype.play = function(board) {
+HardAI.prototype.defaultPlay = function(board, depth) {
 	return new Promise( (resolve, reject) => {
 		if(this.isValidBoard(board)) {
 			this.delay().then(() => {
 				
 				if(this.getTotalPlays(board) === 0) {
 					let aux = this.getEmptyEdges(board);
-					if(aux.length > 0) {
+					if(aux.length > 0) {						
 						resolve(this.getRandomPosition(aux));
 						return;
 					}
 				} else if(this.getTotalPlays(board) === 1 && this.isEmpty(board[4])) {
-					// 4 = CENTER
+					// 4 = CENTER					
 					resolve(4);
 					return;
 				}
 				// I win
 				let aux = this.isWinPossible(board, this.config.ai);
-				if(aux.length > 0) {
+				if(aux.length > 0) {					
 					resolve(this.getRandomPosition(aux));
 					return;
 				}
 				// I try to avoid losing the round.
 				aux = this.isWinPossible(board, this.config.player);
-				if(aux.length > 0) {
+				if(aux.length > 0) {					
 					resolve(this.getRandomPosition(aux));
 					return;
-				}
-				
-				resolve(this.getRandomPosition(this.getEmptyPositions(board)));
+				}				
+				resolve(this.getBestPlay(board, depth));
 				
 			});
 		} else {
@@ -43,5 +42,9 @@ HardAI.prototype.play = function(board) {
 		}
 	});
 };
+
+HardAI.prototype.play = function(board) {
+	return this.defaultPlay(board, 2);
+}
 
 module.exports = HardAI;

@@ -1,6 +1,6 @@
-const AI = require('../index.js').createAI({player: 'O', ai: 'X', level: 'hard'});
+const AI = require('../index.js').createAI({player: 'O', ai: 'X', level: 'expert'});
 
 console.log('Thinking.....');
-AI.play(['O', 'X', 'O', '', 'O', 'X', 'X', 'O', 'X']).then((pos) => {
+AI.play(['', '', 'O', '', 'X', '', 'O', '', '']).then((pos) => {
 	console.log('I will play on '+pos);
 });

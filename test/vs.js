@@ -1,5 +1,5 @@
 const ai1 = require('../index.js').createAI({level: 'hard', player: 'X', ai: 'O', empty: '-'});
-const ai2 = require('../index.js').createAI({level: 'medium', player: 'O', ai: 'X', empty: '-'});
+const ai2 = require('../index.js').createAI({level: 'expert', player: 'O', ai: 'X', empty: '-'});
 
 let plays = 0;
 let turn = 1;

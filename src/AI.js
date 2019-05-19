@@ -143,9 +143,28 @@ TicTacToeAI.prototype.minimax = function(board, node, turn, depth) {
 };
 
 TicTacToeAI.prototype.getBestPlay = function(board, depth) {
-	let rootNode = new MinimaxNode(undefined, -1, 0, 0);
+	// Create root node.
+	let rootNode = new MinimaxNode(undefined, -1, 0, 0);	
+	// Calculate the play tree.
 	this.minimax(board, rootNode, 1, depth);
-	rootNode.toString();
+	// get the branch scores.	
+	let scores = rootNode.getChildrenBranchScore();
+	if(scores !== undefined && scores.length > 0) {
+		// get the best score.
+		let bestIdx = 0;
+		let bestScore = scores[0];
+		scores.forEach((elem, idx) => {
+			if(elem > bestScore) {
+				bestIdx = idx;
+				bestScore = elem;
+			}				
+		});
+		// Return the best play.
+		return rootNode.getChild(bestIdx).getPos();
+	} else {
+		// Return an aleatory play.
+		return this.getRandomPosition(this.getEmptyPositions(board));
+	}
 };
 
 module.exports = TicTacToeAI;
