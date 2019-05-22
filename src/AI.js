@@ -117,6 +117,7 @@ TicTacToeAI.prototype.minimax = function(board, node, turn, depth) {
 				let childNode = new MinimaxNode(node, elem, 1, turn);
 				node.addChild(childNode);				
 			});
+			// returns not to calculate other plays.
 			return;
 		}
 	}
@@ -134,8 +135,9 @@ TicTacToeAI.prototype.minimax = function(board, node, turn, depth) {
 		// Save the score.	
 		let childNode = new MinimaxNode(node, elem, score, turn);
 		node.addChild(childNode);		
-		// Check if I can lose, it doesn't go ahead.
+		// Check if I don't lose, then go ahead.
 		if(score > -1) {			
+			// Decreases depth and calls minimax.
 			let newDepth = depth - 1;
 			this.minimax(newBoard, childNode, newTurn, newDepth);
 		}

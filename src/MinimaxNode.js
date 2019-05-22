@@ -55,8 +55,7 @@ MinimaxNode.prototype.getBranchScore = function() {
     let endNodes = [];
     this.getEndNodes(endNodes);    
     // Calculate the average score and returns it.
-    let sum = endNodes.reduce((acc, elem) => acc + elem.getScore(), 0);
-    return sum / endNodes.length;
+    return endNodes.reduce((acc, elem) => acc + elem.getScore(), 0) / endNodes.length;    
 };
 
 MinimaxNode.prototype.getChildrenBranchScore = function() {

@@ -1,9 +1,11 @@
 const assert = require('assert');
 const utils = require('./test-utils.js');
-const tictactoeAI = new (require('../src/AI.js'))({});
 
-describe('TicTacToeAI', function(){
-	
+// TicTacToeAI
+describe('TicTacToeAI', function() {
+	// Gets AI.
+	const tictactoeAI = new (require('../src/AI.js'))({});
+
 	it('isValidBoard Function', function() {
 		const p = tictactoeAI.config.player;
 		// Just an array with 9 elements must be accepted.
@@ -67,4 +69,62 @@ describe('TicTacToeAI', function(){
 		assert(utils.checkArrays(tictactoeAI.getEmptyEdges(['X', '', 'X', '', 'X', '', '', '', 'X']), [6]));
 		assert(utils.checkArrays(tictactoeAI.getEmptyEdges(['X', '', 'X', '', 'X', '', 'O', '', 'X']), []));
 	});
-})
+
+	it('getMark', function() {
+		assert(tictactoeAI.getMark(1) === tictactoeAI.config.ai);
+		assert(tictactoeAI.getMark(-1) === tictactoeAI.config.player);
+	});
+});
+
+// MinimaxNode
+describe('MinimaxNode', function() {
+	const MinimaxNode = require('../src/MinimaxNode.js');
+	// root node
+	let rootNode = new MinimaxNode(undefined, -1, -1, 0);
+	// root's children
+	let childNode = new MinimaxNode(rootNode, 0, 1, 1);
+	let childNode2 = new MinimaxNode(rootNode, 1, 0, 1);
+	// child2's children / root's grandChildren
+	let grandChildNode = new MinimaxNode(childNode2, 0, -1, -1);
+	let grandChildNode2 = new MinimaxNode(childNode2, 2, 1, -1);
+	let grandChildNode3 = new MinimaxNode(childNode2, 3, 1, -1);
+
+	it('addChild', function() {
+		// Adds a child
+		rootNode.addChild(childNode);
+		// Checks if it has a child.
+		assert(rootNode.hasChild());
+	});	
+
+	it('hasChild', function() {
+		assert(rootNode.hasChild());
+	});
+
+	it('getChildren', function() {
+		rootNode.addChild(childNode2);
+		assert(utils.checkArrays(rootNode.getChildren(), [childNode, childNode2]));
+	});
+
+	it('getChild', function() {
+		assert(rootNode.getChild(0) === childNode);
+	});
+
+	it('getEndNodes', function() {
+		childNode2.addChild(grandChildNode);
+		let arr = [];
+		rootNode.getEndNodes(arr);
+		assert(utils.checkArrays(arr, [childNode, grandChildNode]));
+	});
+
+	it('getBranchScore', function() {
+		childNode2.addChild(grandChildNode2);
+		childNode2.addChild(grandChildNode3);		
+		assert(childNode2.getBranchScore() === (1 / 3));
+	});
+
+	it('getChildrenBranchScore', function() {
+		assert(utils.checkArrays(rootNode.getChildrenBranchScore(), [1, (1 / 3)] ));
+	});
+
+
+});
