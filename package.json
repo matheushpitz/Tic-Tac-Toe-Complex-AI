@@ -1,26 +1,30 @@
 {
-  "name": "tic-tac-toe-complex-ai",
+  "name": "tictactoe-complex-ai",
   "version": "1.0.0",
-  "description": "This is a Complex JavaScript AI for the Tic Tac Toe Game.",
+  "description": "A Complex JavaScript AI for the Tic Tac Toe Game.",
   "main": "index.js",
   "scripts": {
     "test": "mocha ./test/unit-test.js",
-	"play-test": "node ./test/play-test.js",
-	"vs": "node ./test/vs.js"
+    "play-test": "node ./test/play-test.js",
+    "vs": "node ./test/vs.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/matheushpitz/Tic-Tac-Toe-Complex-AI.git"
   },
   "keywords": [
-    "TicTacToe",
-    "ComplexAI",
-    "AI"
+    "tictactoe",
+    "complex",
+    "ai",
+    "game"
   ],
   "author": "Matheus Pitz",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/matheushpitz/Tic-Tac-Toe-Complex-AI/issues"
   },
-  "homepage": "https://github.com/matheushpitz/Tic-Tac-Toe-Complex-AI#readme"
+  "homepage": "https://github.com/matheushpitz/Tic-Tac-Toe-Complex-AI#readme",
+  "devDependencies": {
+    "mocha": "^6.1.4"
+  }
 }
