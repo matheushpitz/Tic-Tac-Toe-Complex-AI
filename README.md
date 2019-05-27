@@ -35,3 +35,16 @@ aiInstance.play(board).then(pos => {
 ```
 ## How to configure the AI
 
+The config parameter is a Object with these properties:
+
+* **level (required)** - It is a String which means what level the AI will use on the instance. There are 4 levels, **easy**, **medium**, **hard** and **expert**.
+
+* **ai** - It is a String that means what character represents the AI on the board. **Default value is 'O'**.
+
+* **player** - It is a String that means what character represents the Player (Enemy's AI) on the board. **Default value is 'X'**.
+
+* **empty** - It is a String that means what character represents an empty space on the board. **Default value is ''**.
+
+* **minResponseTime** - It is an Integer that means the minimum time (in milliseconds) it will take to make the play. **Default value is 2000**.
+
+* **maxResponseTime** - It is an Integer that means the maximum time (in milliseconds) it will take to make the play. **Default value is 5000**.
