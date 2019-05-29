@@ -25,15 +25,21 @@ The createAI function requires a config parameter that will be used to configure
 ```
 // Requires the package
 const ai = require('tictactoe-complex-ai');
+
 // Creates a new instance of AI.
 let aiInstance = ai.createAI({level: 'easy'});
+
 // Creates a new empty board.
 const board = ['', '', '', '', '', '', '', '', ''];
+
 // Makes the play
 aiInstance.play(board).then(pos => {
+
   // Success
   console.log('AI plays on the position '+pos);
+  
 }).catch(() => {
+
   // Fail
   console.log('An error occurred.');
 });
