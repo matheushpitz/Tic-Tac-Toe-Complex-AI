@@ -23,13 +23,18 @@ let aiInstance = ai.createAI({level: 'easy'});
 ```
 The createAI function requires a config parameter that will be used to configure the AI (We will talk about it on the next topic). After you created a new instance, you can call the play function passing the current board to make the play, as you can see here:
 ```
+// Requires the package
 const ai = require('tictactoe-complex-ai');
-
+// Creates a new instance of AI.
 let aiInstance = ai.createAI({level: 'easy'});
+// Creates a new empty board.
 const board = ['', '', '', '', '', '', '', '', ''];
+// Makes the play
 aiInstance.play(board).then(pos => {
+  // Success
   console.log('AI plays on the position '+pos);
 }).catch(() => {
+  // Fail
   console.log('An error occurred.');
 });
 ```
