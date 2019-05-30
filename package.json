@@ -1,6 +1,6 @@
 {
   "name": "tictactoe-complex-ai",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Complex JavaScript AI for the Tic Tac Toe Game.",
   "main": "index.js",
   "scripts": {
